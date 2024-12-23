@@ -5,22 +5,24 @@ import { SelectedPage } from '../../shared/types';
 type Props = {
     page: string;
     selectedPage: SelectedPage;
-    setSelectedPage: (value: SelectedPage) => void;
+    setSelectedPage: (value: SelectedPage) => void    
 }
 
 const Link = ({ page, selectedPage, setSelectedPage }: Props) => {
     const lowerCasePage = page.toLowerCase().replace(/ /g, "") as SelectedPage;
 
-    return (
-        <AnchorLink                        
-            href={`#${lowerCasePage}`}
-            onClick={() => setSelectedPage(lowerCasePage)}            
-        >
-            <p className={`${selectedPage === lowerCasePage ? "text-blue-500" : ""}
-            transition duration-500 hover:text-primary-300`}>
-                {page}
-            </p>
-        </AnchorLink>
+    console.log(`AnchorLink href: #${lowerCasePage}`);
+
+    return (        
+        <button className={`${selectedPage === lowerCasePage ? "text-primary-500" : ""}
+        transition duration-500 hover:text-primary-300`}
+        onClick={() => {
+            document.getElementById(lowerCasePage)?.scrollIntoView({ behavior: 'smooth' });
+            setSelectedPage(lowerCasePage)
+        }}>
+            {page}                
+        </button>
+
     )
 }
 
